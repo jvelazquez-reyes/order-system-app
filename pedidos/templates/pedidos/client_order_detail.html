@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles Pedido</title>
+    <link
+      rel="stylesheet"
+      ,
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" , href="{% static 'main.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1>Cliente - Detalles del Pedido</h1>
+          <p>Articulo: {{ item.code }}</p>
+          {% if ordered %}
+          <p>Orden: {{ order.orderNo }}</p>
+          <a href="{% url 'edit-order' item.code order.orderNo %}"
+            ><button class="btn btn-primary">Editar pedido!</button></a
+          >
+          {% else %}
+          <a href="{% url 'create-order' item.code %}"
+            ><button class="btn btn-primary">Hacer pedido!</button></a
+          >
+          {% endif %}
+          {% if ordered %}
+          <a href="{% url 'delete-order' item.code order.orderNo %}"><button class="btn btn-danger">Eliminar orden</button></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

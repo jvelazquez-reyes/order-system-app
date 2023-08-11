@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles Pedido</title>
+    <link
+      rel="stylesheet"
+      ,
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" , href="{% static 'main.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1>Proveedor - Detalles del Articulo</h1>
+          <p>Articulo: {{ item.code }}</p>
+          <a href="{% url 'edit-item' item.code %}"
+            ><button class="btn btn-success">Editar articulo!</button></a
+          >
+          <a href="{% url 'delete-item' item.code %}"
+            ><button class="btn btn-danger">Eliminar articulo</button></a
+          >
+          <h2>Pedidos:</h2>
+          <ul class="list-group">
+            {% for ords in orders %}
+            <li class="list-group-item">
+              <p>Cliente: {{ ords.client.user }}</p>
+              <p>Orden: {{ ords.orderNo }}</p>
+              <p>Fecha de pedido: {{ ords.created_at }}</p>
+              {% if ords.is_urgent %}
+              <p>Pedido: URGENTE</p>
+              {% else %}
+              <p>Pedido: NO ES URGENTE</p>
+              {% endif %} 
+              <p>Cantidad: {{ ords.quantity }}</p>
+              {% if ords.is_urgent and ords.client.client_type == '4' and ords.distribution_center %}
+              <p style="color:red">
+                Este es un pedido urgente a un Centro de Distribucion hecho por
+                un cliente PLATINO!!!
+              </p>
+              {% endif %}
+              <a href="{% url 'manage-order' item.code ords.orderNo %}"
+                ><button class="btn btn-dark">Administrar pedido!</button></a
+              >
+            </li>
+
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
