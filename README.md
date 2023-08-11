@@ -1,5 +1,4 @@
-# Mobilender
-## Prueba de programación
+# Django App
 
 Servicio web para un sistema de pedidos
 
